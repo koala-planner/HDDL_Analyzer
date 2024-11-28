@@ -1,0 +1,9 @@
+[package]
+name = "hddl_analyzer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+Robinson = { version = "0.1.0", path = "Robinson" }
+clap = { version = "4.5.20", features = ["derive"] }
+petgraph = "*"
