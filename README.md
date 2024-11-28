@@ -16,8 +16,8 @@ In what follows, we provide the currently supported list of errors (for further 
 ## Build Instruction
 The following steps must be taken to compile the project. Wherever we mention "project_directory", we mean the root folder where the ```cargo.toml``` file is located.
 1. This project was written in the Rust programming language, and requires its compiler (and cargo package manager) to be built.
-If you do not have it installed, follow the official installation guide ([link](https://www.rust-lang.org/tools/install)).
-2. The project depends on parts of [CreuSAT](https://github.com/sarsko/CreuSAT), a formally verified DPLL solver. In order to add this dependency, copy the ```Robinson``` directory from CreuSAT to the project directory (i.e., you should have src, tests, and Robinson in the project directory)
+If you do not have it installed, follow the official installation guide ([link](https://www.rust-lang.org/tools/install)). Note that while the main project does not require any specific feature of the compiler, some of the dependencies require a nightly build. Thus, make sure this option is selected as the main toolkit.
+2. The project depends on parts of [CreuSAT](https://github.com/sarsko/CreuSAT), a formally verified DPLL solver. In order to add this dependency, copy the ```Robinson``` directory from CreuSAT to the project directory (i.e., you should have src, tests, and Robinson in the project directory).
 3. Open a terminal in the project directory, and execute ```cargo build --release```.
 4. If all steps are done successfully, the executable file can be located in ```/project_directory/target/release/hddl_analyzer.exe```.
 
