@@ -942,4 +942,48 @@ mod tests {
             _ => panic!("parsing erro")
         }
     }
+
+    #[test]
+    pub fn last_character_bug_test() {
+        let program = String::from(
+            "(define (domain bal)
+                (:action a_1
+                 :parameters (p_1 p_2 - t1 p_3 - t2)
+                 :precondition (not (at p_1))
+                 :effect (and (not (hold p_2 p_3))
+                 (at p_2))
+                )
+             )",
+        )
+        .into_bytes();
+        let lexer = LexicalAnalyzer::new(&program);
+        match Parser::new(lexer).parse() {
+            Ok(AbstractSyntaxTree::Domain(ast)) => {
+            }
+            Ok(_) => panic!(),
+            Err(token) => panic!("{:?}", token)
+        }
+    }
+
+    #[test]
+    pub fn last_character_bug_2_test() {
+        let program = String::from(
+            "(define (domain bal)
+                (:action a_1
+                 :parameters (p_1 p_2 - t1 p_3 - t2)
+                 :precondition (not (at p_1))
+                 :effect (and (not (hold p_2 p_3))
+                 (at p_2))
+                )
+             )             ",
+        )
+        .into_bytes();
+        let lexer = LexicalAnalyzer::new(&program);
+        match Parser::new(lexer).parse() {
+            Ok(AbstractSyntaxTree::Domain(ast)) => {
+            }
+            Ok(_) => panic!(),
+            Err(token) => panic!("{:?}", token)
+        }
+    }
 }

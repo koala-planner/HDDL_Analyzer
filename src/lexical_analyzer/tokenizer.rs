@@ -34,7 +34,7 @@ impl <'a> LexicalAnalyzer <'a> {
 
     fn parse(&self, peek: bool) -> Result<Token, LexicalError> {
         self.skip_whitespaces();
-        if self.cursor.get() == self.program.len() - 1 {
+        if self.cursor.get() == self.program.len() {
             return Ok(Token::EOF);
         }
         if let Some(char) = self.peek_next_char() {
@@ -209,19 +209,16 @@ impl <'a> LexicalAnalyzer <'a> {
     }
 
     fn skip_whitespaces(&self) {
-        let mut current = self.program[self.cursor.get()] as char;
-        while LexicalAnalyzer::is_whitespace(&current) {
-            if self.cursor.get() == self.program.len() - 1 {
-                return;
-            }
-            if current == '\n' {
-                let new_line = self.last_token_pos.get().line + 1;
-                self.last_token_pos.set(
-                    TokenPosition { line: new_line }
-                );
+        while self.cursor.get() != self.program.len() {
+            let current = self.program[self.cursor.get()] as char;
+            if !LexicalAnalyzer::is_whitespace(&current) {
+                break;
+            } else if current == '\n' {
+                self.last_token_pos.set(TokenPosition { 
+                    line: self.last_token_pos.get().line + 1 
+                });
             }
             self.cursor.set(self.cursor.get() + 1);
-            current = self.program[self.cursor.get()] as char;
         }
     }
 
